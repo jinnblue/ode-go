@@ -70,6 +70,11 @@ func (w World) SetERP(erp float64) {
 	C.dWorldSetERP(w.c(), C.dReal(erp))
 }
 
+// SetDamping sets body linear and angular scales.
+func (w World) SetDamping(linear_scale, angular_scale float64) {
+	C.dWorldSetDamping(w.c(), C.dReal(linear_scale), C.dReal(angular_scale))
+}
+
 // ERP returns the error reduction parameter.
 func (w World) ERP() float64 {
 	return float64(C.dWorldGetERP(w.c()))

@@ -2,8 +2,11 @@
 // See the ODE documentation for more information.
 package ode
 
-// #cgo LDFLAGS: -lode
-// #include <ode/ode.h>
+/*
+#cgo CPPFLAGS: -I../ode/include
+#cgo LDFLAGS: -L${SRCDIR}/bin/ -l:libode.a
+#include <ode/ode.h>
+*/
 import "C"
 
 import (
@@ -183,7 +186,7 @@ type VertexList Matrix
 
 // NewVertexList returns a new VertexList instance.
 func NewVertexList(size int, vals ...float64) VertexList {
-	return VertexList(NewMatrix(size, 3, 1, vals...))
+	return VertexList(NewMatrix(size, 3, 4, vals...))
 }
 
 // PlaneList represents a list of plane definitions.
@@ -215,6 +218,10 @@ func NewTriVertexIndexList(size int, indices ...uint32) TriVertexIndexList {
 
 // PolygonList represents a list of polygon definitions
 type PolygonList []C.uint
+
+func GetConfiguration() string {
+	return C.GoString(C.dGetConfiguration())
+}
 
 // Init initializes ODE.
 func Init(initFlags, allocFlags int) {
