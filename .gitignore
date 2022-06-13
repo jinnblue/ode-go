@@ -2,7 +2,6 @@
 *.dll
 *.a
 __debug_bin
-bin/
 
 # Test binary, built with `go test -c`
 *.test
